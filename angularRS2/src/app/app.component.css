@@ -1,0 +1,38 @@
+nav{
+  width: 100%;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0px;
+  background-color: #6060ef;
+  height: 70px;
+  width: 100%;
+}
+
+li {
+  float:left;
+  margin-left: 4%;
+}
+
+li a {
+  display: block;
+  color: white;
+  font-size:20px;
+  text-align: center;
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-top: 15px;
+  margin-left: 0%;
+}
+.active{
+  background-color: rgba(2, 40, 180, 0.91);
+  color: white;
+}
+li a:hover {
+  background-color: rgba(199, 216, 239, 0.64);
+  color: white;
+}
+.ngx-pagination{
+
+}

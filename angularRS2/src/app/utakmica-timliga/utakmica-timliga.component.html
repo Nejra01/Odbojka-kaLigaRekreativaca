@@ -1,0 +1,75 @@
+
+<button class="form-label" (click)="nova_utakmicatimliga_dugme()">Nova utakmicatimliga</button>
+<br>
+<input [(ngModel)]="filter_ime">
+<br>
+<div class="mb-3 row" *ngIf="podaci !=null" >
+  <label class="col-sm-2 col-form-label">Godina lige</label>
+  <div class="col-sm-4">
+    <input  disabled class="form-control" [value]="podaci[0].utakmica.kolo.liga.godinaLige">
+  </div>
+</div>
+<div class="mb-3 row" *ngIf="podaci !=null" >
+  <label class="col-sm-2 col-form-label">Kolo: </label>
+  <div class="col-sm-4">
+    <input  disabled class="form-control" [value]="podaci[0].utakmica.kolo.brojKola">
+  </div>
+</div>
+<div class="mb-3 row" *ngIf="podaci !=null" >
+  <label class="col-sm-2 col-form-label">Utakmica: </label>
+  <div class="col-sm-4">
+    <input  disabled class="form-control" [value]="podaci[0].utakmica.nazivUtakmice">
+  </div>
+</div>
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Tim:</th>
+  </tr>
+  </thead>
+  <tr *ngFor="let x of this.podaci">
+
+    <td>{{x.timLiga.timIgrac.tim.imeTima}}</td>
+
+
+
+    <td *ngIf="loginInfo().isLogiran"><button (click)="odabrana_utakmicatimliga=x"><i style="font-size:24px" class="fa">&#xf044;</i></button>
+   <button (click)="obrisi(x)" style="margin-left: 15px;"><i class="material-icons">&#xe872;</i></button></td>
+   <!-- <td><button (click)="otvori_detalje(x)">Prikaži igrače</button></td>-->
+
+  </tr>
+</table>
+
+
+
+<div *ngIf="odabrana_utakmicatimliga!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Unesite potrebne podatke: </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="odabrana_utakmicatimliga=null"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label>Utakmica: </label>
+          <select [(ngModel)]="odabrana_utakmicatimliga.utakmicaID">
+            <option  [value]="podaci[0].utakmica.utakmicaID">{{podaci[0].utakmica.nazivUtakmice}}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label>TimLiga: </label>
+          <select [(ngModel)]="odabrana_utakmicatimliga.timLigaID">
+            <option *ngFor="let x of timliga_podaci " [value]="x.timLigaID">{{x.timOpis}} -> {{x.ligaOpis}}</option>
+          </select>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="odabrana_utakmicatimliga=null">Close</button>
+        <button type="button" class="btn btn-primary" (click)="snimi()" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

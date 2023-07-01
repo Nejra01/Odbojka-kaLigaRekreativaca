@@ -1,0 +1,64 @@
+<button class="form-label" (click)="novi_timliga_dugme()">Novi timLiga</button>
+<br>
+<input [(ngModel)]="filter_ime">
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>TimIgrac: </th>
+    <th>Liga: </th>
+    <th>DatumPrijave: </th>
+
+  </tr>
+  </thead>
+  <tr *ngFor="let x of getpodaci()">
+    <td>{{x.timOpis}} -> {{x.igracOpis}} </td>
+    <td>{{x.ligaOpis}}</td>
+    <td>{{x.datumPrijave}}</td>
+
+    <td *ngIf="loginInfo().isLogiran"><button (click)="odabrani_timliga=x" ><i style="font-size:24px" class="fa">&#xf044;</i></button>
+    <button (click)="obrisi(x)" style="margin-left: 15px;"><i class="material-icons">&#xe872;</i></button></td>
+
+  </tr>
+</table>
+
+
+
+<div *ngIf="odabrani_timliga!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Unesite potrebne podatke: </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="odabrani_timliga=null"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+
+          <label>TimIgrac: </label>
+          <select [(ngModel)]="odabrani_timliga.timIgracID">
+            <option *ngFor="let x of timigrac_podaci" [value]="x.timIgracID">{{x.timOpis}} -> {{x.igracOpis}}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label>Liga: </label>
+          <select [(ngModel)]="odabrani_timliga.ligaID">
+            <option *ngFor="let x of liga_podaci" [value]="x.ligaID">{{x.godinaLige}}</option>
+          </select>
+
+        </div>
+
+        <div class="mb-3">
+
+          <label>DatumPrijave:</label>
+          <input class="form-control" placeholder="DatumPrijave" [(ngModel)]="odabrani_timliga.datumPrijave">
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="odabrani_timliga=null">Close</button>
+        <button type="button" class="btn btn-primary" (click)="snimi()" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+

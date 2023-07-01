@@ -1,0 +1,83 @@
+
+<button class="form-label" (click)="nova_utakmicatimligaigrac_dugme()">Nova utakmicatimligaigrac</button>
+<br>
+<input [(ngModel)]="filter_ime">
+<br>
+<div class="mb-3 row" *ngIf="podaci !=null" >
+  <label class="col-sm-2 col-form-label">Liga: </label>
+  <div class="col-sm-4">
+    <input  disabled class="form-control" [value]="podaci[0].utakmicaTimLiga.utakmica.kolo.liga.godinaLige">
+
+  </div>
+</div>
+<div class="mb-3 row" *ngIf="podaci !=null" >
+  <label class="col-sm-2 col-form-label">Kolo: </label>
+  <div class="col-sm-4">
+    <input  disabled class="form-control" [value]="podaci[0].utakmicaTimLiga.utakmica.kolo.brojKola">
+
+</div>
+</div>
+<div class="mb-3 row" *ngIf="podaci !=null" >
+  <label class="col-sm-2 col-form-label">Utakmica: </label>
+  <div class="col-sm-4">
+    <input  disabled class="form-control" [value]="podaci[0].utakmicaTimLiga.utakmica.nazivUtakmice">
+  </div>
+</div>
+<div class="mb-3 row" *ngIf="podaci !=null" >
+  <label class="col-sm-2 col-form-label">Tim: </label>
+  <div class="col-sm-4">
+    <input  disabled class="form-control" [value]="podaci[0].utakmicaTimLiga.timLiga.timIgrac.tim.imeTima">
+  </div>
+</div>
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Ime:</th>
+    <th>Prezime:</th>
+
+  </tr>
+  </thead>
+  <tr *ngFor="let x of this.podaci">
+
+    <td>{{x.igrac.ime}}</td>
+    <td>{{x.igrac.prezime}}</td>
+
+    <td *ngIf="loginInfo().isLogiran"><button (click)="odabrana_utakmicatimligaigrac=x"><i style="font-size:24px" class="fa">&#xf044;</i></button>
+   <button (click)="obrisi(x)" style="margin-left: 15px;"><i class="material-icons">&#xe872;</i></button></td>
+
+  </tr>
+</table>
+
+
+
+
+<div *ngIf="odabrana_utakmicatimligaigrac!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Unesite potrebne podatke: </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="odabrana_utakmicatimligaigrac=null"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <label>UtakmicaTimLiga: </label>
+          <select [(ngModel)]="odabrana_utakmicatimligaigrac.utakmicaTimLigaID">
+            <option [value]="podaci[0].utakmicaTimLigaID">{{podaci[0].utakmicaTimLiga.utakmica.nazivUtakmice}}-{{podaci[0].utakmicaTimLiga.timLiga.timIgrac.tim.imeTima}}-{{podaci[0].utakmicaTimLiga.utakmica.kolo.liga.godinaLige}}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label>Igrac: </label>
+          <select [(ngModel)]="odabrana_utakmicatimligaigrac.igracID">
+            <option *ngFor="let x of igrac_podaci " [value]="x.igracID">{{x.ime}} {{x.prezime}}</option>
+          </select>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="odabrana_utakmicatimligaigrac=null">Close</button>
+        <button type="button" class="btn btn-primary" (click)="snimi()" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

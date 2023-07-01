@@ -1,0 +1,44 @@
+
+<button class="form-label" (click)="novi_set_dugme()" *ngIf="loginInfo().isLogiran">Novi set</button>
+
+<br>
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Imeseta</th>
+
+  </tr>
+  </thead>
+  <tr *ngFor="let x of getpodaci()">
+    <td>{{x.brojSeta}}</td>
+
+
+    <td *ngIf="loginInfo().isLogiran"><button (click)="odabrani_set=x" ><i style="font-size:24px" class="fa">&#xf044;</i></button>
+   <button (click)="obrisi(x)" style="margin-left: 15px;"><i class="material-icons">&#xe872;</i></button></td>
+
+  </tr>
+</table>
+
+
+<div *ngIf="odabrani_set!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Unesite potrebne podatke: </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="odabrani_set=null"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Broj seta</label>
+          <input class="form-control" placeholder="BrojSeta" [(ngModel)]="odabrani_set.brojSeta">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="odabrani_set=null">Close</button>
+        <button type="button" class="btn btn-primary" (click)="snimi_dugme()" >Save changes</button>
+
+
+      </div>
+    </div>
+  </div>
+</div>
